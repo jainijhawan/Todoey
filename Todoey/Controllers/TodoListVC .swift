@@ -49,9 +49,9 @@ class TodoListVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //print(itemArray[indexPath.row])
         
-        context.delete(itemArray[indexPath.row])
-        itemArray.remove(at: indexPath.row)
-        //itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        //context.delete(itemArray[indexPath.row])
+        //itemArray.remove(at: indexPath.row)
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         saveItems()
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -119,6 +119,11 @@ extension TodoListVC: UISearchBarDelegate{
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         loadItems(with: request)
 
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0{
+            loadView()
+        }
     }
 }
 
